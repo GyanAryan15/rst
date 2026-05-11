@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from "react";
-import Card from "../components/Card"; // Import the Card component
-import "../index.css"
+import Card from "../components/Card";
+import img1 from "../assets/img1.webp";
+import img2 from "../assets/img2.jpg";
+import img3 from "../assets/img3.jpg";
+import img4 from "../assets/img4.jpg"; 
+import img7 from "../assets/img7.jpg"; // Correct path with a leading dot
+import img8 from "../assets/img8.jpg"; // Corrected file extension
+import "../index.css";
+
 
 const cardImages = [
-  { src: "/img/card1.png", matched: false },
-  { src: "/img/card2.png", matched: false },
-  { src: "/img/card3.png", matched: false },
-  { src: "/img/card4.png", matched: false },
-  { src: "/img/card5.png", matched: false },
-  { src: "/img/card6.png", matched: false },
+  { src: img1, matched: false },
+  { src: img2, matched: false },
+  { src: img3, matched: false },
+  { src: img4, matched: false },
+  { src: img7, matched: false },
+  { src: img8, matched: false },
 ];
 
 function MemoryGame() {

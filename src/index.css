@@ -1,17 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Nunito', sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
-  color: rgba(84, 84, 208, 0.87);
-  background-color: #ded7d7;
-
+  background-color: #0f0f1a;
+  color: #f1f1f1;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --font-display: 'Fredoka One', cursive;
+  --font-body: 'Nunito', sans-serif;
+
+  /* Game colour palette */
+  --clr-bg:        #0f0f1a;
+  --clr-surface:   #1a1a2e;
+  --clr-border:    #2e2e4a;
+  --clr-accent-1:  #f97316;   /* orange  – Whack-a-Mole */
+  --clr-accent-2:  #8b5cf6;   /* violet  – Memory */
+  --clr-accent-3:  #06b6d4;   /* cyan    – Tic-Tac-Toe */
+  --clr-success:   #10b981;
+  --clr-danger:    #ef4444;
+  --clr-text:      #f1f1f1;
+  --clr-muted:     #9ca3af;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
 }
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
+/* ── Reset ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background-color: var(--clr-bg);
+  color: var(--clr-text);
+  min-height: 100vh;
+}
+
+/* ── Card flip (Memory Game) ────────────────────────── */
+.card-scene {
+  perspective: 800px;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.card-scene.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+/* ── Utility ────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0.55rem 1.5rem;
+  border-radius: var(--radius-pill);
+  border: none;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
+}
+
+.btn:hover  { filter: brightness(1.12); transform: translateY(-2px); }
+.btn:active { transform: scale(0.96); }
+
+.btn-primary {
+  background: var(--clr-accent-3);
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(6,182,212,0.35);
+}
+
+.btn-orange {
+  background: var(--clr-accent-1);
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(249,115,22,0.35);
+}
+
+.btn-violet {
+  background: var(--clr-accent-2);
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(139,92,246,0.35);
+}
+
+/* ── Mole bounce ────────────────────────────────────── */
+@keyframes mole-pop {
+  0%   { transform: translateY(60%) scale(0.6); opacity: 0; }
+  60%  { transform: translateY(-8%) scale(1.08); opacity: 1; }
+  100% { transform: translateY(0)   scale(1);    opacity: 1; }
+}
+
+.mole-pop { animation: mole-pop 0.22s ease-out forwards; }
+
+/* ── Pulse ring (matched card) ──────────────────────── */
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0   rgba(139,92,246,0.55); }
+  70%  { box-shadow: 0 0 0 10px rgba(139,92,246,0);   }
+  100% { box-shadow: 0 0 0 0   rgba(139,92,246,0);    }
+}
+.matched { animation: pulse-ring 0.6s ease-out; }
+
+/* ── Fade-slide-in ──────────────────────────────────── */
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+.fade-in { animation: fadeSlideIn 0.45s ease both; }

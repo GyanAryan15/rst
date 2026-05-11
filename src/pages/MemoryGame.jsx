@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Card from "../components/Card";
-import img1 from "../assets/img1.webp";
-import img2 from "../assets/img2.jpg";
-import img3 from "../assets/img3.jpg";
-import img4 from "../assets/img4.jpg"; 
-import img7 from "../assets/img7.jpg"; // Correct path with a leading dot
-import img8 from "../assets/img8.jpg"; // Corrected file extension
+import img1 from "../assets/img1.png";
+import img2 from "../assets/img2.png";
+import img3 from "../assets/img3.png";
+import img4 from "../assets/img4.png"; 
+import img7 from "../assets/img7.png"; // Correct path with a leading dot
+import img8 from "../assets/img8.png"; // Corrected file extension
 import "../index.css";
 
 

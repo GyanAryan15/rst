@@ -1,21 +1,53 @@
-// src/components/MoleHole.jsx
 import React from 'react';
 
-const MoleHole = ({ onClick, moleVisible }) => {
+export default function MoleHole({ onClick, moleVisible }) {
   return (
     <div
-      className={`w-24 h-24 border border-gray-400 rounded relative flex items-center justify-center bg-green-300 m-2`}
       onClick={onClick}
+      style={{
+        position: 'relative',
+        aspectRatio: '1',
+        borderRadius: 'var(--radius-md)',
+        background: 'var(--clr-surface)',
+        border: `2px solid ${moleVisible ? '#fb923c' : 'var(--clr-border)'}`,
+        display: 'flex',
+        alignItems: 'flex-end',
+        justifyContent: 'center',
+        overflow: 'hidden',
+        cursor: moleVisible ? 'crosshair' : 'default',
+        transition: 'border-color 0.2s, box-shadow 0.2s',
+        boxShadow: moleVisible ? '0 0 20px rgba(249,115,22,0.4)' : 'none',
+      }}
     >
+      {/* Dirt / hole visual */}
+      <div style={{
+        position: 'absolute',
+        bottom: 0,
+        width: '80%',
+        height: '30%',
+        background: '#3b1e0a',
+        borderRadius: '50% 50% 0 0',
+        zIndex: 1,
+      }} />
+
+      {/* Mole */}
       {moleVisible && (
-        <div className="absolute w-12 h-12 bg-brown rounded-full animate-bounce">
-          <span role="img" aria-label="mole" className="text-4xl">
-            🐹
-          </span>
-        </div>
+        <span
+          className="mole-pop"
+          style={{
+            fontSize: '2.4rem',
+            position: 'absolute',
+            bottom: '15%',
+            zIndex: 2,
+            lineHeight: 1,
+            userSelect: 'none',
+          }}
+          role="img"
+          aria-label="mole"
+        >
+          🐹
+        </span>
       )}
     </div>
   );
-};
-
-export default MoleHole;
+}

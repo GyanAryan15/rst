@@ -1,26 +1,49 @@
-import React from "react";
+import React from 'react';
 
-function Card({ card, handleFlip, flipped }) {
+export default function Card({ card, handleFlip, flipped }) {
   return (
     <div
-      className={`relative w-24 h-32 cursor-pointer ${
-        flipped ? "flip" : ""
-      } transition-transform transform hover:scale-105`}
-      onClick={() => handleFlip(card)}
+      className={`card-scene${flipped ? ' flipped' : ''}${card.matched ? ' matched' : ''}`}
+      onClick={() => !card.matched && handleFlip(card)}
+      style={{
+        width: '100%',
+        aspectRatio: '3 / 4',
+        cursor: card.matched ? 'default' : 'pointer',
+        borderRadius: 'var(--radius-md)',
+      }}
+      aria-label={flipped ? 'card face' : 'card back'}
     >
-      <div className={`absolute w-full h-full ${flipped ? "" : "bg-white"}`}>
-        {flipped ? (
+      <div className="card-inner">
+        {/* Back face — shown when not flipped */}
+        <div
+          className="card-face"
+          style={{
+            background: 'linear-gradient(135deg, #4c1d95, #7c3aed)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            border: '2px solid #6d28d9',
+          }}
+        >
+          <span style={{ fontSize: '1.8rem', opacity: 0.5 }}>🃏</span>
+        </div>
+
+        {/* Front face — shown when flipped */}
+        <div
+          className="card-face card-back"
+          style={{
+            border: card.matched ? '2px solid #a78bfa' : '2px solid var(--clr-border)',
+            opacity: card.matched ? 0.75 : 1,
+            transition: 'opacity 0.3s',
+          }}
+        >
           <img
             src={card.src}
             alt="card"
-            className="w-full h-full rounded-lg object-cover shadow-md"
+            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
           />
-        ) : (
-          <div className="w-full h-full bg-gray-400 rounded-lg"></div>
-        )}
+        </div>
       </div>
     </div>
   );
 }
-
-export default Card;
